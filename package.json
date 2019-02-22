@@ -18,7 +18,7 @@
   "nativescript": {
     "id": "org.nativescript.groceries",
     "tns-android": {
-      "version": "5.1.0"
+      "version": "5.2.0"
     },
     "tns-ios": {
       "version": "5.1.1"
@@ -37,7 +37,12 @@
     "watch-tests": "tsc -p e2e --watch",
     "update-app-ng-deps": "update-app-ng-deps",
     "ns-verify-bundle": "ns-verify-bundle",
-    "update-ns-webpack": "update-ns-webpack"
+    "update-ns-webpack": "update-ns-webpack",
+    "apply-cc": "rimraf app/package.json && cp-cli app/package.cc.json app/package.json",
+    "remove-cc": "rimraf app/package.json && cp-cli app/package.nocc.json app/package.json",
+    "run-android-snapshot": "npm run remove-cc && tns run android --bundle --env.aot --env.uglify --env.snapshot --release --key-store-path credential/test.key --key-store-password=test --key-store-alias test --key-store-alias-password=test",
+    "run-android-cc": "npm run apply-cc && tns run android --bundle --env.aot --env.uglify --release --key-store-path credential/test.key --key-store-password=test --key-store-alias test --key-store-alias-password=test",
+    "run-android-cc-snapshot": "npm run apply-cc && tns run android --bundle --env.aot --env.uglify --env.snapshot --release --key-store-path credential/test.key --key-store-password=test --key-store-alias test --key-store-alias-password=test"
   },
   "dependencies": {
     "@angular/common": "~7.2.0",
@@ -49,18 +54,18 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "email-validator": "^2.0.4",
-    "nativescript-angular": "~7.2.0",
+    "nativescript-angular": "^7.2.2",
     "nativescript-iqkeyboardmanager": "~1.3.0",
     "nativescript-social-share": "~1.5.1",
     "nativescript-unit-test-runner": "^0.3.3",
     "reflect-metadata": "~0.1.8",
     "rxjs": "^6.3.3",
-    "tns-core-modules": "~5.1.2",
+    "tns-core-modules": "^5.2.1",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "~7.1.0",
-    "@ngtools/webpack": "~7.1.0",
+    "@angular/compiler-cli": "~7.2.0",
+    "@ngtools/webpack": "~7.2.0",
     "@types/chai": "~4.1.7",
     "@types/mocha": "~5.2.5",
     "@types/node": "~10.12.18",
@@ -68,6 +73,7 @@
     "babel-types": "6.26.0",
     "babylon": "6.18.0",
     "codelyzer": "^4.5.0",
+    "cp-cli": "^2.0.0",
     "filewalker": "^0.1.3",
     "jasmine-core": "^3.3.0",
     "karma": "^3.1.1",
@@ -78,8 +84,9 @@
     "mocha-junit-reporter": "~1.18.0",
     "mocha-multi": "~1.0.1",
     "nativescript-dev-appium": "~5.0.0",
-    "nativescript-dev-typescript": "~0.7.9",
-    "nativescript-dev-webpack": "~0.19.1",
+    "nativescript-dev-typescript": "^0.8.0",
+    "nativescript-dev-webpack": "^0.20.2",
+    "rimraf": "^2.6.3",
     "tslint": "^5.4.2",
     "typescript": "~3.1.1"
   }
